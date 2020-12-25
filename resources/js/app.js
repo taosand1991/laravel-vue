@@ -4,16 +4,19 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
 import router from '../js/router';
 import store from '../js/store';
-import 'bootstrap/dist/js/bootstrap.js';
-import 'bootstrap/dist/css/bootstrap.css';
-// import moment from 'moment';
-// Vue.use(moment);
+
+// require('./bootstrap')
+
+
+
 
 
 window.Vue = require('vue');
+
+
+
 
 /**
  * The following block of code may be used to automatically register your

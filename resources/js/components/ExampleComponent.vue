@@ -19,6 +19,7 @@
                     <button @click="deletePost(post.id)" type="button" class="btn btn-outline-danger btn-sm">Delete Post</button>
                 </div>
             </div>
+            
         </div> 
    <edit-post-component 
     :closePost='closePost'   

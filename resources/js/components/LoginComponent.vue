@@ -19,7 +19,7 @@
                  <div class="text-center">
                  <router-link to='/forgot' >Forgot password?</router-link>
                  </div>
-            </form>
+            </form>   
         </div>
   </div>
 </template>
