@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\HomeContoller;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +12,6 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 
 Route::get('/{vue_capture?}', function () {
@@ -24,5 +19,3 @@ Route::get('/{vue_capture?}', function () {
 })->where('vue_capture', '[\/\w\.-]*');
 
 Route::view('/reset', 'welcome')->name('password.reset');
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
