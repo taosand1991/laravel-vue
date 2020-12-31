@@ -9,7 +9,7 @@ import CreatePostComponent from '../js/components/CreatePostComponent';
 import CreateUserComponent from '../js/components/CreateUserComponent';
 import ForgotPassword from '../js/components/ForgotPassword';
 import ResetPassword from '../js/components/ResetPassword';
-import Notfound from '../js/components/Notfound';
+import NotFound from '../js/components/NotFound';
 import ProfileComponent from '../js/components/ProfileComponent';
 import ChangePassword from '../js/components/ChangePassword';
 import UserPost from '../js/components/UserPost';
@@ -39,7 +39,7 @@ const routes = [
     {path:'/profile', name:'Profile', component:ProfileComponent, meta:{requiresAuth:true}},
     {path:'/:name/posts', name:'UserPost', component:UserPost, meta:{requiresAuth:true}},
     {path:'/user/password/change', name:'Change', component:ChangePassword, meta:{requiresAuth:true}},
-    {path:'/404', name:'Error', component:Notfound},
+    {path:'/404', name:'Error', component:NotFound},
     {path:'/home', name:'Home',  component:HomeComponent, meta:{requiresAuth: true}},
     {path:'/create/user', name:'User',  component:CreateUserComponent},
     {path:'/forgot', name:'Forgot',  component:ForgotPassword},
