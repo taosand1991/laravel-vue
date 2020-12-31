@@ -3,23 +3,33 @@
         <div v-if='!loading' class="loading">
              <div class="spinner-border text-danger" role="status"></div>
         </div>
-        <div class="row justify-content-center">
-            <div v-for="post of posts" :key="post.id" class="card mb-4 ml-4" style="width:400px">
+        <div v-if="$route.params.success" class="alert alert-success alert-dismissible fade show" role="alert">
+                {{$route.params.success}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">X</button>
+        </div>
+        <div class="row justify-content-center ">
+            <div v-for="post of posts" :key="post.id" class="card mb-4 ml-lg-4 ml-md-4 " style="width:400px">
                 <div class="card-header text-center">
-                    <h5>{{post.title}}</h5>
+                    <h5><router-link :to="`/post/${post.id}`">{{post.title}}</router-link></h5>
                 </div>
                 <div class="card-body">
-                    <router-link class="text-center" :to='`/post/${post.id}`'>{{post.users.name.toUpperCase()}}</router-link>
+                    <router-link class="text-center" :to="`/${post.users.name}/posts`">{{post.users.name.toUpperCase()}}</router-link>
                     <p>{{post.body}}</p>
                     <small class="float-right">{{moment(post.created_at).fromNow()}}</small>
                     <div v-html="showEdited(post)"></div>
+                    <div class="likes-part">
+                        <i @click="likedPost(post.id)" :class="[post.likes.indexOf(user.id) !== -1 || isLiked ? 'fa fa-thumbs-up' : 'fa fa-thumbs-o-up']"></i>
+                        <p>{{post.likes.length}} {{pluraLized(post.likes.length)}}</p>
+                    </div>
                 </div>
-                <div class="row container justify-content-center mx-auto py-4 px-4">
+                <div v-if="post.users.name === user.name" class="row container justify-content-center mx-auto py-4 px-4">
                     <button @click='editPost(post)' class="mr-4 btn btn-outline-primary btn-sm">Edit Post</button>
                     <button @click="deletePost(post.id)" type="button" class="btn btn-outline-danger btn-sm">Delete Post</button>
                 </div>
             </div>
-            
+            <div class="text-center" v-if="posts.length <= 0">
+                <h5>You have No post as of now please</h5>
+            </div>
         </div> 
    <edit-post-component 
     :closePost='closePost'   
@@ -41,6 +51,8 @@ Vue.prototype.moment = moment;
             return {
                 posts:[],
                 loading:false,
+                user: {},
+                isLiked:false,
                 postForm:{
                     title:'',
                     body:'',
@@ -56,7 +68,7 @@ Vue.prototype.moment = moment;
                 const response = await axios.get('/api/posts', {
                     headers:{'Authorization': `Bearer ${token}`}
                 });
-                this.posts = response.data['posts']
+                this.posts = response.data['posts'];
                 console.log(response)
                 this.loading = true;
                 } catch (e) {
@@ -102,13 +114,14 @@ Vue.prototype.moment = moment;
                  const response = await axios.put(`/api/post/edit/${this.postForm.id}`, postObject, {
                      headers:{'Authorization':`Bearer ${token}`}
                  })
-                setTimeout(() => {
+                setTimeout(async () => {
                     this.loading = true;
                     this.showEdit = false;
-                    this.getData();
+                    await this.getData();
                     alert(response.data['message'])
                 }, 2000)
                 } catch (e) {
+                    this.loading =  true;
                     console.log(e.response.data)
                 }
             },
@@ -116,12 +129,30 @@ Vue.prototype.moment = moment;
                 if(post.updated_at > post.created_at){
                     return "<i class='fa fa-globe text-muted'>  edited</i>"
                 }
+            },
+            async likedPost(id){
+                const token = localStorage.getItem('userToken')
+                console.log(id)
+                try {
+                    const response = await axios.get(`/api/post/like/${id}`, {
+                        headers:{'Authorization': `Bearer ${token}`}
+                    });
+                    await this.getData();
+                    console.log(response)
+                } catch (error) {
+                    console.log(error.response.data);
+                };
+            },
+            pluraLized(count){
+                if(count === 1) return 'like'
+                else if(count > 1) return 'likes'
+                return null;
             }
         },
         mounted: async function(){
-            
+            console.log(this.$router)
             await this.getData()
-            console.log('example')
+            this.user = JSON.parse(localStorage.getItem('userProfile'))
         }
         
     }

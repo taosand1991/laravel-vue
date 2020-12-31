@@ -57,6 +57,9 @@ export default {
             }
             } catch (e) {
                 this.loading = false;
+                if(e.response.status === 500){
+                    this.error = 'something is wrong, please try again later'
+                }
                 this.error = e.response.data['status'][0]
                 console.log(e.response.data)
             }

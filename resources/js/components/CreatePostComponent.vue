@@ -7,11 +7,11 @@
           <div class="col-12 col-md-8 offset-md-2 justify-content-center">
               <h4 class="text-center">Create Your Post</h4>
               <form @submit.prevent="submitPost" class="form-group">
-                  <input :style="[errors.title ? 'border:1px solid red': null ]" @change="getInput" name="title" v-model="postForm.title" class="form-control mb-2" placeholder="Title"/>
+                  <input :style="[errors.title ? 'border:1px solid red': null ]" @input='getInput' name="title" v-model="postForm.title" class="form-control mb-2" placeholder="Title"/>
                   <small v-if='errors.title' class="text-danger">{{errors.title}}</small>
-                  <textarea name="body" @change="getInput" v-model="postForm.body" class="form-control mb-2" placeholder="Post Description"/>
+                  <textarea name="body" @input="getInput" v-model="postForm.body" class="form-control mb-2" placeholder="Post Description"/>
                     <small v-if='errors.body' class="text-danger">{{errors.body}}</small>
-                  <button :disabled="postForm.title === '' || postForm.body === ''" type="submit" class="btn btn-success btn-sm btn-block">Create</button>
+                  <button :disabled="postForm.title === '' || postForm.body === '' || errors['titles'] || errors['body']" type="submit" class="btn btn-success btn-sm btn-block">Create</button>
               </form>
           </div>
   </div>
@@ -20,6 +20,8 @@
 
 <script>
 import axios from 'axios';
+
+
 export default {
     data(){
         return {
@@ -55,11 +57,17 @@ export default {
             }
         },
         getInput(e){
-            if(e.target.name === 'title' || e.target.value.length < 5){
-                this.errors['title'] = 'Title must be more than 15 chars'
-            }else if(e.target.name === 'body' || e.target.value.length < 5){
-                this.errors['body'] = 'description must be more than 100 chars'
-            }else this.errors = {};
+            if(e.target.name === 'title'){
+                if(this.postForm.title.trim() < 5){
+                    console.log(this.errors)
+                    this.$set(this.errors, 'title', 'your title must be more than 15 chars')
+                }else delete this.errors['title']
+            }
+             if(e.target.name === 'body'){
+                if(this.postForm.body.trim() < 20){
+                    this.$set(this.errors, 'body', 'your body text must be more than 20 chars')
+                }else delete this.errors['body']
+            }
         }
     }
 }

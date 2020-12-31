@@ -9,6 +9,11 @@ import CreatePostComponent from '../js/components/CreatePostComponent';
 import CreateUserComponent from '../js/components/CreateUserComponent';
 import ForgotPassword from '../js/components/ForgotPassword';
 import ResetPassword from '../js/components/ResetPassword';
+import Notfound from '../js/components/Notfound';
+import ProfileComponent from '../js/components/ProfileComponent';
+import ChangePassword from '../js/components/ChangePassword';
+import UserPost from '../js/components/UserPost';
+
 
 Vue.use(VueRouter)
 // const routes = [
@@ -31,6 +36,10 @@ Vue.use(VueRouter)
 // ]
 const routes = [
     {path:'/', name:'Root', component:ExampleComponent, meta:{requiresAuth:true}},
+    {path:'/profile', name:'Profile', component:ProfileComponent, meta:{requiresAuth:true}},
+    {path:'/:name/posts', name:'UserPost', component:UserPost, meta:{requiresAuth:true}},
+    {path:'/user/password/change', name:'Change', component:ChangePassword, meta:{requiresAuth:true}},
+    {path:'/404', name:'Error', component:Notfound},
     {path:'/home', name:'Home',  component:HomeComponent, meta:{requiresAuth: true}},
     {path:'/create/user', name:'User',  component:CreateUserComponent},
     {path:'/forgot', name:'Forgot',  component:ForgotPassword},
@@ -38,6 +47,7 @@ const routes = [
     {path:'/post/:id', name:'Detail',  component:PostDetailComponent, meta:{requiresAuth: true}},
     {path:'/create', name:'Create',  component:CreatePostComponent, meta:{requiresAuth: true}},
     {path:'/login', name:'Login', component:LoginComponent},
+    {path:'/*', redirect : '/404'},
 ]
 
 const router = new VueRouter({
@@ -47,14 +57,22 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     const token = localStorage.getItem('userToken');
-    console.log(token);
-    if(to.matched.some(record =>record.meta.requiresAuth)){
+    if(to.matched.some(record => record.meta.requiresAuth)){
         if(!token){
             next({
                 path:'/login',
             })
-        }else next()
-    }else next()
+        }else next();
+    
+    }else {
+        if (to.path === '404' || token !== null){
+            next({
+                path:"/"
+            })
+        }else{
+            next();
+        }
+    }
     
 })
 

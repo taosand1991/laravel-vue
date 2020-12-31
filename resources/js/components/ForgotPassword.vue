@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+       <div  v-show="loading" class="loading">
+          <div class="spinner-border text-danger" role="status"></div>
+      </div>
       <div class="row">
           <div class="flex justify-content-center mt-5">
               <p class="text-danger" v-if="error">{{error}}</p>
@@ -19,19 +22,27 @@ export default {
     data(){
         return {
             email:'',
-            error:''
+            error:'',
+            loading:false,
         }
     },
     methods:{
         async submitEmail(){
+            this.loading = true;
             const emailObject = {
                 email:this.email,
             };
          try {
             const response = await axios.post('/api/forgot', emailObject);
-            console.log(response)
+            setTimeout(() => {
+                this.$router.push({
+                    name:'Login',
+                    params:{success: response.data['status']}
+                });
+            }, 2000)
          } catch (e) {
          if(e){
+             this.loading = false;
              console.log(e.response.data)
          this.error = e.response.data['message']['email'][0]
          }

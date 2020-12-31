@@ -26,7 +26,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/post/create', [PostController::class, 'store']);
     Route::get('/post/{post:id}', [PostController::class, 'getPost']);
     Route::get('/post/delete/{post:id}', [PostController::class, 'deletePost']);
+    Route::post('/user/password', [UserController::class, 'changePassword']);
     Route::put('/post/edit/{id}', [PostController::class, 'editPost']);
+    Route::get('/post/like/{post:id}', [PostController::class, 'likePost']);
+    Route::get('/posts/{name}', [PostController::class, 'getUserPosts']);
 });
 
 Route::post('/create', [UserController::class, 'store']);

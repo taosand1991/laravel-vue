@@ -6,13 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Concerns\HasAttributes;
+
+
 
 class PostController extends Controller
 {
     public function index()
     {
-        $post = Post::with(['users'])->orderBy('updated_at', 'desc')->get();
+        $post = Post::select()->orderBy('created_at', 'desc')->with(['users'])->get();
         return response()->json(['posts' => $post], 200);
     }
     public function store(Request $request)
@@ -52,5 +56,30 @@ class PostController extends Controller
         if ($post) {
             return response()->json(['message' => 'Your post has been updated'], 200);
         } else return response()->json(['message' => 'Your update request was found with error(s)'], 400);
+    }
+
+    public function likePost(Post $post)
+    {
+        $user_id = Auth::user()->id;
+        $new_post = $post->likes;
+        $get_id = array_search($user_id, $new_post);
+        if (!in_array($user_id, $new_post)) {
+            array_push($new_post, $user_id);
+            $post->likes = $new_post;
+            $post->save();
+            return response()->json(['success' => 'You liked this post'], 200);
+        } else {
+            array_splice($new_post, $get_id, 1);
+            $post->likes = $new_post;
+            $post->save();
+            return response()->json(['success' => 'You dislike this post'], 200);
+        }
+    }
+
+    public function getUserPosts($name)
+    {
+        $user = User::where('name', '=', $name)->first();
+        $posts = Post::where('user_id', '=', $user->id)->with(['users'])->get();
+        return response()->json(['posts' => $posts, 'user' => $user], 200);
     }
 }

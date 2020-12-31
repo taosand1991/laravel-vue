@@ -48,7 +48,8 @@ export default {
             try {
              const response = await axios.post('/api/login', loginObject)
              await localStorage.setItem('userToken', response.data['token'])
-             JSON.stringify(localStorage.setItem('userProfile', response.data['user']))
+             console.log(response.data['user'])
+             localStorage.setItem('userProfile', JSON.stringify(response.data['user']))
              setTimeout(() => {
                  this.loading = false;
                  window.location.href = '/'
@@ -63,6 +64,7 @@ export default {
     },
     mounted(){
         console.log(this.$router)
+        console.log("i'm on router page");
     }
 }
 </script>
