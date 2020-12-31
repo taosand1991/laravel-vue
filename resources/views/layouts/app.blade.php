@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href={{asset('/image/dog.jpg')}} type='icon'>
-    <link rel="stylesheet" href={{ asset('/css/app.css') }} media="all">
+    <link rel="stylesheet" href={{ secure_asset('/css/app.css') }} media="all">
     <title>Laravel Post</title>
 </head>
 
@@ -17,7 +17,7 @@
         <router-view></router-view>
         </transition>
     </div>
-    <script type='text/javascript'  src={{mix('/js/app.js')}}></script>
+    <script type='text/javascript'  src={{secure_asset('/js/app.js')}}></script>
     <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
