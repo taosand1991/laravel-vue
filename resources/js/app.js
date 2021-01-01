@@ -7,7 +7,7 @@
 import router from '../js/router';
 import store from '../js/store';
 
-// require('./bootstrap')
+require('./bootstrap')
 
 
 
