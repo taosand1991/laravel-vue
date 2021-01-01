@@ -47,7 +47,7 @@ const routes = [
     {path:'/post/:id', name:'Detail',  component:PostDetailComponent, meta:{requiresAuth: true}},
     {path:'/create', name:'Create',  component:CreatePostComponent, meta:{requiresAuth: true}},
     {path:'/login', name:'Login', component:LoginComponent},
-    {path:'/*', redirect : '/404'},
+    {path:'*', redirect : '/404'},
 ]
 
 const router = new VueRouter({
