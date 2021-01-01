@@ -29,10 +29,10 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('navbar-component', require('./components/NavBarComponent.vue'));
-Vue.component('edit-post-component', require('./components/EditPostComponent.vue'));
-Vue.component('reset-password-component', require('./components/ResetPassword.vue'));
+// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('navbar-component', require('./components/NavBarComponent.vue').default);
+Vue.component('edit-post-component', require('./components/EditPostComponent.vue').default);
+// Vue.component('reset-password-component', require('./components/ResetPassword.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
