@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::view('/', 'welcome');
-// Route::get('/{vue_capture?}', function () {
-//     return view('layouts.app');
-// })->where('vue_capture', '[\/\w\.-]*');
+// Route::view('/', 'welcome');
+Route::get('/{vue_capture?}', function () {
+    return view('layouts.app');
+})->where('vue_capture', '[\/\w\.-]*');
 
-// Route::view('/reset', 'welcome')->name('password.reset');
+Route::view('/reset', 'welcome')->name('password.reset');
