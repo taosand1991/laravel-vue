@@ -69,7 +69,7 @@ Vue.prototype.moment = moment;
                     headers:{'Authorization': `Bearer ${token}`}
                 });
                 this.posts = response.data['posts'];
-                this.user = respons.data['users']
+                this.user = respons.data.posts['users']
                 console.log(response)
                 this.loading = true;
                 } catch (e) {
