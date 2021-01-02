@@ -13,12 +13,12 @@
                     <h5><router-link :to="`/post/${post.id}`">{{post.title}}</router-link></h5>
                 </div>
                 <div class="card-body">
-                    <router-link class="text-center" :to="`/${post.users.name}/posts`">{{post.users.name.toUpperCase()}}</router-link>
+                    <!-- <router-link class="text-center" :to="`/${post.users.name}/posts`">{{user.name.toUpperCase()}}</router-link> -->
                     <p>{{post.body}}</p>
                     <small class="float-right">{{moment(post.created_at).fromNow()}}</small>
                     <div v-html="showEdited(post)"></div>
                     <div class="likes-part">
-                        <i @click="likedPost(post.id)" :class="[post.likes.indexOf(user.id) !== -1 || isLiked ? 'fa fa-thumbs-up' : 'fa fa-thumbs-o-up']"></i>
+                        <!-- <i @click="likedPost(post.id)" :class="[post.likes.indexOf(user.id) !== -1 || isLiked ? 'fa fa-thumbs-up' : 'fa fa-thumbs-o-up']"></i> -->
                         <p>{{post.likes.length}} {{pluraLized(post.likes.length)}}</p>
                     </div>
                 </div>
