@@ -13,13 +13,13 @@
                     <h5><router-link :to="`/post/${post.id}`">{{post.title}}</router-link></h5>
                 </div>
                 <div class="card-body">
-                    <!-- <router-link class="text-center" :to="`/${post.users.name}/posts`">{{user.name.toUpperCase()}}</router-link> -->
+                    <router-link class="text-center" :to="`/${post.users.name}/posts`">{{user.name.toUpperCase()}}</router-link>
                     <p>{{post.body}}</p>
                     <small class="float-right">{{moment(post.created_at).fromNow()}}</small>
                     <div v-html="showEdited(post)"></div>
                     <div class="likes-part">
-                        <!-- <i @click="likedPost(post.id)" :class="[post.likes.indexOf(user.id) !== -1 || isLiked ? 'fa fa-thumbs-up' : 'fa fa-thumbs-o-up']"></i> -->
-                        <!-- <p>{{post.likes.length}} {{pluraLized(post.likes.length)}}</p> -->
+                        <i @click="likedPost(post.id)" :class="[post.likes.indexOf(user.id) !== -1 || isLiked ? 'fa fa-thumbs-up' : 'fa fa-thumbs-o-up']"></i>
+                        <p>{{post.likes.length}} {{pluraLized(post.likes.length)}}</p>
                     </div>
                 </div>
                 <div v-if="post.users.name === user.name" class="row container justify-content-center mx-auto py-4 px-4">
@@ -69,7 +69,8 @@ Vue.prototype.moment = moment;
                     headers:{'Authorization': `Bearer ${token}`}
                 });
                 this.posts = response.data['posts'];
-                this.user = response.data.posts['users']
+                const userProfile = localStorage.getItem('userProfile');
+                this.user = JSON.parse(userProfile);
                 console.log(response)
                 this.loading = true;
                 } catch (e) {
