@@ -73,6 +73,7 @@ Vue.prototype.moment = moment;
                 console.log(response)
                 this.loading = true;
                 } catch (e) {
+                    this.loading = true;
                 console.log(e.response.data)
                 }
             },
