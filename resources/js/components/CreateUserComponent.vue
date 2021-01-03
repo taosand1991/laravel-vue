@@ -51,6 +51,7 @@ export default {
             setTimeout(() => {
                 this.loading = false;
                 localStorage.setItem('userToken', response.data['token'])
+                localStorage.setItem('userProfile', JSON.stringify(response.data['user']))
                 this.$router.push('/')
             }, 1500)
             } catch (e) {
