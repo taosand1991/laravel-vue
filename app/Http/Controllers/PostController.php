@@ -35,7 +35,6 @@ class PostController extends Controller
             'title' => $title,
             'body' => $body,
             'user_id' => $user_id,
-            'likes' => [],
         ]);
         // $post = Post::create($request->all());
         return response()->json(['post' => $post], 201);
