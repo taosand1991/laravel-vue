@@ -32,6 +32,7 @@ window.Vue = require('vue');
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('navbar-component', require('./components/NavBarComponent.vue').default);
 Vue.component('edit-post-component', require('./components/EditPostComponent.vue').default);
+Vue.component('footer-component', require('./components/Footer.vue').default);
 // Vue.component('reset-password-component', require('./components/ResetPassword.vue').default);
 
 /**

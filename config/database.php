@@ -79,6 +79,7 @@ return [
         //     'schema' => 'public',
         //     'sslmode' => 'prefer',
         // ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             // 'url' => $DATABASE_URL,

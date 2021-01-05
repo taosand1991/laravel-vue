@@ -6,10 +6,10 @@
       <div class="row">
           <div class="flex justify-content-center mt-5">
               <p class="text-danger" v-if="error">{{error}}</p>
-              <form @submit.prevent="submitEmail" class="form-inline">
+              <form @submit.prevent="submitEmail" class="form-inline mx-3 my-3">
                   <label class="mr-4" for="email">Email</label>
                   <input v-model="email" id="email" type="text" class="form-control mr-2" placeholder="email"/>
-                  <button type="submit" class="btn btn-success btn-lg">send mail</button>
+                  <button type="submit" class="btn btn-success btn-lg mt-md-0 mt-2">send mail</button>
               </form>
           </div>
       </div>

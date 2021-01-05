@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href={{secure_asset('/image/dog.jpg')}} type='icon'>
-    <link rel="stylesheet" href="{{secure_asset('/css/app.css') }}" media="all">
+    <link rel="icon" href={{config('app.debug') ? asset('/image/dog.jpg') : secure_asset('/image/dog.jpg')}} type='icon'>
+    <link rel="stylesheet" href="{{ config('app.debug') ? asset('/css/app.css') : secure_asset('/css/app.css') }}" media="all">
     <title>Laravel Post</title>
 </head>
 
@@ -16,8 +16,9 @@
         <transition name='fade'> 
         <router-view></router-view>
         </transition>
+        <footer-component></footer-component>
     </div>
-    <script type='text/javascript'  src="{{secure_asset('/js/app.js') }}"></script>
+    <script type='text/javascript'  src="{{ config('app.debug') ? asset('/js/app.js') : secure_asset('/js/app.js') }}"></script>
     <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
